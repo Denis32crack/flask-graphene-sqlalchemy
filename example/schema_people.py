@@ -74,3 +74,19 @@ class UpdatePerson(graphene.Mutation):
         person = db_session.query(ModelPeople).filter_by(id=data['id']).first()
 
         return UpdatePerson(person=person)
+    
+class DeletePerson(graphene.Mutation):
+    """ Delete Person"""
+    person = graphene.Field(lambda: People, description="Person deleted by this mutation.")
+
+    class Arguments:
+        input = DeletePersonInput(required=True)
+
+    def mutate(self,info,input):
+        data = utils.input_to_dictionary(input)
+        person = db_session.query(ModelPeople).filter_by(id=data['id']).first()
+        print("mutation Delete")
+        db_session.delete(person)
+        db_session.commit()
+        person = db_session.query(ModelPeople).filter_by(id=data['id']).first()
+        return DeletePerson(person=person)
