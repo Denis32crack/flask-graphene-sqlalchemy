@@ -22,6 +22,8 @@ class Mutation(graphene.ObjectType):
     # Person mutation
     createPerson = schema_people.CreatePerson.Field()
     updatePerson = schema_people.UpdatePerson.Field()
+    deletePerson = schema_people.DeletePerson.Field()
+
 
     # Planet mutations
     createPlanet = schema_planet.CreatePlanet.Field()
